@@ -3,6 +3,17 @@ def find_starting_city(city_distances, fuel, mpg):
     # represents the amount of fuel available in the vehicle in terms of miles
     current_fuel = 0
 
+    # Error handling 
+    if len(city_distances) == 0 or len(fuel) == 0:
+        raise ValueError("The input lists for cities and fuel cannot be empty")
+
+    if len(city_distances) != len(fuel):
+        raise ValueError("The input lists for cities and fuel must be the same length")
+    
+    if mpg <= 0: 
+        raise ValueError("Miles per gallon must be a positive integer greater than 0")
+    
+
     # for loop iterates through each city i along the circular route
     for i in range(len(city_distances)):
         # calculates how far in miles the car can travel with fuel available in the current city 
@@ -22,7 +33,7 @@ def find_starting_city(city_distances, fuel, mpg):
 
 # represents the distances between each city in order
 city_distances = [5, 25, 15, 10, 15]
-# represents the amount of gas available at each city
+# represents the amount of gas available at each city in gallons
 fuel = [1, 2, 1, 0, 3]
 # used to calculate fuel in terms of miles
 mpg = 10
