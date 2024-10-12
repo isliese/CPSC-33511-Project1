@@ -1,0 +1,100 @@
+Project report
+Algorithm 3
+
+Group 1
+
+
+Name 
+Chanran Kim (shining04@csu.fullerton.edu)
+Vinh Nguyen (vinhgod123@csu.fullerton.edu)
+Brian Alvarez (briandalvarez@csu.fullerton.edu)
+Christopher Contreras (CContreras71@csu.fullerton.edu) 
+
+
+Pseudocode
+
+Problem: Finding the right time when all the group members are   
+free to meet up for a meeting.  
+
+Inputs: 
+An array of integers Busy_Schedule 
+An array of integers Working_period
+An array of integers Duration
+
+Outputs: A list of lists of the best times for all group members to attend a meeting. 
+
+Constraints and Assumptions: 
+The time has to be in military 24 hour times
+Meeting should fits within all member’s active period
+Output time intervals should be in ascending order 
+
+Psecudocode: 
+
+Function GroupScheduleMatching(busy_schedules, working_periods, duration):
+    merged_busy_intervals = MergeBusySchedules(busy_schedules, working_periods)
+    free_intervals = FindFreeIntervals(merged_busy_intervals, working_periods)
+    available_intervals = FilterByDuration(free_intervals, duration)
+    return available_intervals
+
+
+Function MergeBusySchedules(busy_schedules, working_periods):
+    all_intervals = []
+    for i = 0 to len(busy_schedules):
+        all_intervals += busy_schedules[i]
+        all_intervals.append([working_periods[i][0], working_periods[i][1]])
+
+    all_intervals.sort(by start_time)
+    merged_intervals = [all_intervals[0]]
+
+    for i = 1 to len(all_intervals):
+        last_interval = merged_intervals[-1]
+        current_interval = all_intervals[i]
+        if current_interval[0] <= last_interval[1]:
+            last_interval[1] = max(last_interval[1], current_interval[1])
+        else:
+            merged_intervals.append(current_interval)
+
+    return merged_intervals
+
+
+Function FindFreeIntervals(merged_intervals, working_periods):
+    free_intervals = []
+    earliest = max([wp[0] for wp in working_periods])
+    latest = min([wp[1] for wp in working_periods])
+    start_time = earliest
+
+    for interval in merged_intervals:
+        if interval[0] > start_time:
+            free_intervals.append([start_time, interval[0]])
+        start_time = interval[1]
+
+    if start_time < latest:
+        free_intervals.append([start_time, latest])
+
+    return free_intervals
+
+
+Function FilterByDuration(free_intervals,):
+    return [interval for interval in free_intervals if (interval[1] - interval[0]) >= duration]
+
+
+
+
+
+
+
+
+Proving efficiency of the pseudocode 
+
+Time Complexity:
+Components: Call three functions: MergeBusySchedules, FindFreeIntervals, and FilterByDuration. The call functions will determine their complexity.
+Combining intervals: loop through n schedules to all_intervals O(m). Sort all)intervals O(m log m). merging intervals: iterate through sorted all_intervals O(m)
+total time complexity of MergeBusySchedules: O(m) + O(m log m) + O(m) = O(m log m) 
+merged_intervals is M. scan through n working periods O(n).  literate through merged intervals time: O(m)
+Total time complexity of FindFreeIntervals: O(n) + O(m) = O(n+m) 
+FilterByDuration: iterate through free_intervals to filter by duration time O(k) K is the number of intervals 
+Total time complexity of FilerByDuration: O(m)
+Final Overall Time Complexity: O(m log m) + O(n + m) + O(m) = O(m log m + n)
+Space Complexity: 
+GroupScheduleMatching: space for all intervals, MergeBusySchedules: all_intervals and merged_intervals are O(m). FindFreeIntervals: space for free_intervals to O(m), FilterByDuration: space for filtered list O(m)
+Total Space Complexity: O(m)
