@@ -1,0 +1,97 @@
+from typing import List, Tuple
+
+#converting this to military time, so that after 12 PM, it will keep going to 13, 14 and etc 
+def convert_to_minutes(time_str: str) -> int:
+    hours, minutes = map(int, time_str.replace("'", "").split(':'))
+    return hours * 60 + minutes
+
+# converting the mintues to match the time frame 
+def convert_to_time_str(minutes: int) -> str:
+    hours = minutes // 60 #divide by 60 because that is how many minutes is in  one hour 
+    minutes = minutes % 60
+    return f"{hours:02}:{minutes:02}"
+
+#take two of the arrays and combine both of the intervals
+def merge_schedules(busy_schedules: List[List[Tuple[int, int]]], common_working_period: Tuple[int, int]) -> List[Tuple[int, int]]:
+
+    combined_busy = [] #create a empty list to store all the intervals 
+    for schedule in busy_schedules: #loop through each person's busy interval and add it to combined_busy 
+        combined_busy.extend(schedule)
+    combined_busy.sort()
+
+    merged_busy = [] #create an empty list to store all merged intervals 
+    current_start, current_end = combined_busy[0] #set the first and last end times to be in the interval 1 of the array 
+    
+    for start, end in combined_busy[1:]: #looping through the second interval because the first one is already assigned 
+        if start <= current_end:
+            current_end = max(current_end, end)
+        else:
+            merged_busy.append((current_start, current_end))
+            current_start, current_end = start, end
+    merged_busy.append((current_start, current_end))
+    
+    free_slots = [] #create a free list for free time 
+    working_start, working_end = common_working_period # creating a period where there is a time where the person is free 
+    
+    if working_start < merged_busy[0][0]: #this would check is if the working_start is earlier tha the busy time and then if there is, it would go into the free slot array 
+        free_slots.append((working_start, merged_busy[0][0]))
+
+    for j in range(1, len(merged_busy)): #loop and compare prev_end and curr_start, if there is a gap, that mean it would go into the free slot array
+        prev_end = merged_busy[j - 1][1]
+        curr_start = merged_busy[j][0]
+        if prev_end < curr_start:
+            free_slots.append((prev_end, curr_start))
+
+    if merged_busy[-1][1] < working_end: #check if the last interval in merged_busy is earlier than the end of working_end, it would the print free_slots
+        free_slots.append((merged_busy[-1][1], working_end))
+
+    return free_slots
+
+
+# this function would take all three intervals as input and convert it to minutes. Then, merged the busy schedule to free slots and return a list of free time
+def group_schedule(busy_schedules: List[List[List[str]]], working_periods: List[List[str]], meeting_duration: int) -> List[List[str]]:
+    converted_busy_schedules = []
+    for schedule in busy_schedules:
+        person_schedule = []
+        for interval in schedule:
+            person_schedule.append((convert_to_minutes(interval[0]), convert_to_minutes(interval[1])))
+        converted_busy_schedules.append(person_schedule)
+
+    earliest_start = max(convert_to_minutes(period[0]) for period in working_periods)
+    latest_end = min(convert_to_minutes(period[1]) for period in working_periods)
+    
+    common_working_period = (earliest_start, latest_end)
+
+    free_slots = merge_schedules(converted_busy_schedules, common_working_period)
+
+    available_slots = []
+    for start, end in free_slots:
+        if end - start >= meeting_duration:
+            available_slots.append([convert_to_time_str(start), convert_to_time_str(end)])
+
+    return available_slots
+
+# Would ask the users to put in both person schedule
+def get_user_input():
+    person1_schedule = eval(input("Enter schedule for person 1: "))
+    person1_working_period = eval(input("Enter working period for person 1: "))
+    
+    person2_schedule = eval(input("Enter schedule for person 2: "))
+    person2_working_period = eval(input("Enter working period for person 2: "))
+    
+    meeting_duration = int(input("Enter the required meeting duration in minutes: "))
+    
+    busy_schedules = [person1_schedule, person2_schedule]
+    working_periods = [person1_working_period, person2_working_period]
+
+    available_slots = group_schedule(busy_schedules, working_periods, meeting_duration)
+
+    print("\nAvailable time slots:")
+    if available_slots:
+        for slot in available_slots:
+            print(f"{slot[0]} - {slot[1]}")
+    else:
+        print("No available time slots.")
+
+
+get_user_input()
