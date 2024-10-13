@@ -28,7 +28,7 @@ def minSwapsCouples(row):
     return swaps
 
 
-# Input: list of people in the row as a Python list string
+# Input: list of people in the row
 row = eval(input("Enter the row as a list : "))
 
 # Output the result
