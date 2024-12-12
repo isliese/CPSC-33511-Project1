@@ -1,4 +1,4 @@
-# CPSC-33511
+# CPSC-33511 Project 1
 2024 California State University Fullerton CPSC 335-11 (Algorithm Engineering) Project 1 <p> <p>
 
 <br>
