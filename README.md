@@ -17,7 +17,7 @@
    To run Algorithm2: python Algorithm2.py <p>
    To run Algorithm3: python Algorithm3.py <p>
 
-   <br>
+<br>
 
 ## The tasks completed by each member of the group
 Algorithm 1 - Pseudocode Writing : Charnan Kim <p>
@@ -31,6 +31,8 @@ Algorithm 2 - Implemetation : Brian Alvarez <p> <p>
 Algorithm 3 - Pseudocode : Vinh Nguyen <p>
 Algorithm 3 - Pseudocode Proving : Christopher Contreras <p>
 Algorithm 3 - Implemetation : Vinh Nguyen <p>
+
+<br>
 
 ## Collaborators 
 Chanran Kim (shining04@csu.fullerton.edu) <br>
