@@ -31,3 +31,9 @@ Algorithm 2 - Implemetation : Brian Alvarez <p> <p>
 Algorithm 3 - Pseudocode : Vinh Nguyen <p>
 Algorithm 3 - Pseudocode Proving : Christopher Contreras <p>
 Algorithm 3 - Implemetation : Vinh Nguyen <p>
+
+## Collaborators 
+Chanran Kim (shining04@csu.fullerton.edu) <br>
+Brian Alvarez (briandalvarez@csu.fullerton.edu) <br>
+Christopher Contreras (CContreras71@csu.fullerton.edu) <br>
+Vinh Nguyen (vinhgod123@csu.fullerton.edu)
