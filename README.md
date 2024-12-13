@@ -12,7 +12,7 @@
 
 ## Instructions for running each algorithm 
 1. Clone Repository: https://github.com/isliese/CPSC-33511.git <p>
-2. cd CPSC-33511 <p>
+2. cd CPSC-33511-Project1 <p>
 3. To run Algorithm1: python Algorithm1.py <p>
    To run Algorithm2: python Algorithm2.py <p>
    To run Algorithm3: python Algorithm3.py <p>
