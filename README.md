@@ -34,7 +34,7 @@ Algorithm 3 - Implemetation : Vinh Nguyen <p>
 
 <br>
 
-## Collaborators 
+## Members
 Chanran Kim (shining04@csu.fullerton.edu) <br>
 Brian Alvarez (briandalvarez@csu.fullerton.edu) <br>
 Christopher Contreras (CContreras71@csu.fullerton.edu) <br>
